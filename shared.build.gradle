@@ -1,0 +1,8 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'org.jetbrains.kotlin.kapt'
+
+dependencies {
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
+  api(project(":github-api"))
+}

@@ -1,0 +1,39 @@
+apply plugin: "maven-publish"
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allSource
+  archiveClassifier.set("sources")
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      artifact(sourceJar)
+
+      pom {
+        name = 'github-api'
+        description = 'A subset of github v3 API deffinitions'
+        url = 'https://github.com/trevjonez/github-api'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id = 'TrevJonez'
+            name = 'Trevor Jones'
+            email = 'trevorjones141@gmail.com'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://github.com/trevjonez/github-api.git'
+          developerConnection = 'scm:git:ssh://github.com/trevjonez/github-api.git'
+          url = 'https://github.com/trevjonez/github-api'
+        }
+      }
+    }
+  }
+}

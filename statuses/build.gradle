@@ -1,0 +1,2 @@
+apply from: "../shared.build.gradle"
+apply from: "../publishing.gradle"

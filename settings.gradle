@@ -1,0 +1,48 @@
+pluginManagement {
+  resolutionStrategy {
+    eachPlugin {
+      if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
+        useVersion(kotlinVersion)
+      }
+    }
+  }
+}
+
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+  repositories {
+    gradlePluginPortal()
+    jcenter()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+  }
+}
+
+gradle.rootProject {
+  buildscript {
+    repositories {
+      gradlePluginPortal()
+      jcenter()
+    }
+    dependencies {
+      classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+  }
+  allprojects {
+    repositories {
+      jcenter()
+    }
+
+    tasks.withType(KotlinCompile).configureEach { ktCompileTask ->
+      kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"]
+      }
+    }
+  }
+}
+
+include(":github-api", ":statuses", ":releases")
+enableFeaturePreview('GRADLE_METADATA')
