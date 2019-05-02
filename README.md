@@ -1,6 +1,8 @@
 # github-api
 Kotlin Retrofit implementation for Github v3 APIs
 
+[ ![Download](https://api.bintray.com/packages/trevorjones141/maven/github-api/images/download.svg?version=latest) ](https://bintray.com/trevorjones141/maven/github-api/latest/link)
+
 ## Installation
 
 Available via [jcenter](https://bintray.com/trevorjones141/maven/github-api)
