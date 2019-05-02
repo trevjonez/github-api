@@ -15,10 +15,11 @@
  */
 
 apply plugin: "maven-publish"
+apply plugin: "com.jfrog.bintray"
 
 task sourceJar(type: Jar) {
   from sourceSets.main.allSource
-  archiveClassifier.set("sources")
+  archiveClassifier.set('sources')
 }
 
 publishing {
@@ -50,6 +51,23 @@ publishing {
           url = 'https://github.com/trevjonez/github-api'
         }
       }
+    }
+  }
+}
+
+bintray {
+  user = project.findProperty('bintray_user')
+  key = project.findProperty('bintray_api_key')
+  publications = ['mavenJava']
+  pkg {
+    repo = 'maven'
+    name = 'github-api'
+    licenses = ['Apache-2.0']
+    vcsUrl = 'git@github.com:trevjonez/github-api.git'
+    version {
+      name = project.version
+      released = new Date()
+      vcsTag = project.version
     }
   }
 }
