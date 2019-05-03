@@ -78,7 +78,7 @@ data class Release(
       @Header("Authorization") auth: String
     ): Call<Release>
 
-    @GET("/repos/{owner}/{repo}/releases")
+    @POST("/repos/{owner}/{repo}/releases")
     @Headers("Content-Type: application/json; charset=utf-8")
     fun create(
       @Path("owner") owner: String,
