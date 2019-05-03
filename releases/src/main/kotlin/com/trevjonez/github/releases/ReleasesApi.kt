@@ -152,11 +152,11 @@ data class Release(
   @JsonClass(generateAdapter = true)
   data class Request(
     val tag_name: String,
-    val target_commitish: String,
-    val name: String,
-    val body: String,
-    val draft: Boolean,
-    val prerelease: Boolean
+    val target_commitish: String?,
+    val name: String?,
+    val body: String?,
+    val draft: Boolean?,
+    val prerelease: Boolean?
   )
 
   @JsonClass(generateAdapter = true)
@@ -177,8 +177,8 @@ data class Release(
   ) {
     @JsonClass(generateAdapter = true)
     data class Edit(
-      val name: String,
-      val label: String
+      val name: String?,
+      val label: String?
     )
   }
 }
