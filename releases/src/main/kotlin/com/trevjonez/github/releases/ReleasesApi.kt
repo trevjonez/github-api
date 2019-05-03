@@ -1,17 +1,17 @@
 /*
- *    Copyright 2019 Trevor Jones
+ * Copyright (c) 2019. Trevor Jones
  *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- *        http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.trevjonez.github.releases
@@ -29,23 +29,23 @@ import java.time.LocalDateTime
 @JsonClass(generateAdapter = true)
 data class Release(
   val url: String,
-  val html_url: String,
-  val assets_url: String,
-  val upload_url: String,
-  val tarball_url: String,
-  val zipball_url: String,
+  val html_url: String? = null,
+  val assets_url: String? = null,
+  val upload_url: String? = null,
+  val tarball_url: String? = null,
+  val zipball_url: String? = null,
   val id: Long,
   val node_id: String,
-  val tag_name: String,
-  val target_commitish: String,
-  val name: String,
-  val body: String,
-  val draft: Boolean,
-  val prerelease: Boolean,
-  val created_at: LocalDateTime,
-  val published_at: LocalDateTime,
-  val author: User,
-  val assets: List<Asset>
+  val tag_name: String? = null,
+  val target_commitish: String? = null,
+  val name: String? = null,
+  val body: String? = null,
+  val draft: Boolean = false,
+  val prerelease: Boolean = false,
+  val created_at: LocalDateTime? = null,
+  val published_at: LocalDateTime? = null,
+  val author: User? = null,
+  val assets: List<Asset> = emptyList()
 ) {
   interface Api {
     @GET("/repos/{owner}/{repo}/releases")
