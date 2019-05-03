@@ -34,11 +34,13 @@ fun defaultRetrofit() = Retrofit.Builder()
       .build()
   )
   .baseUrl(HttpUrl.get("https://api.github.com"))
-  .addConverterFactory(MoshiConverterFactory.create())
+  .addConverterFactory(MoshiConverterFactory.create(defaultMoshi()))
   .addConverterFactory(ScalarsConverterFactory.create())
   .build()
 
-fun moshi() = Moshi.Builder().add(LocalDateTimeAdapter())
+fun defaultMoshi() = Moshi.Builder()
+  .add(LocalDateTimeAdapter())
+  .build()
 
 fun headerInterceptor(name: String, value: String) = Interceptor { chain ->
   chain.proceed(
