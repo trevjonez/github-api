@@ -17,7 +17,6 @@
 package com.trevjonez.github.releases
 
 import com.squareup.moshi.JsonClass
-import com.sun.org.apache.xpath.internal.operations.Bool
 import com.trevjonez.github.User
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -42,7 +41,7 @@ data class Release(
   val name: String,
   val body: String,
   val draft: Boolean,
-  val prerelease: Bool,
+  val prerelease: Boolean,
   val created_at: LocalDateTime,
   val published_at: LocalDateTime,
   val author: User,
