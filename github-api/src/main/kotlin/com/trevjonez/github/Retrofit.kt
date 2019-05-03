@@ -16,12 +16,16 @@
 
 package com.trevjonez.github
 
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.ToJson
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.time.LocalDateTime
 
 fun defaultRetrofit() = Retrofit.Builder()
   .client(
@@ -34,6 +38,8 @@ fun defaultRetrofit() = Retrofit.Builder()
   .addConverterFactory(ScalarsConverterFactory.create())
   .build()
 
+fun moshi() = Moshi.Builder().add(LocalDateTimeAdapter())
+
 fun headerInterceptor(name: String, value: String) = Interceptor { chain ->
   chain.proceed(
     chain.request()
@@ -41,4 +47,16 @@ fun headerInterceptor(name: String, value: String) = Interceptor { chain ->
       .header(name, value)
       .build()
   )
+}
+
+class LocalDateTimeAdapter {
+  @FromJson
+  fun from(json: String): LocalDateTime {
+    return LocalDateTime.parse(json)
+  }
+
+  @ToJson
+  fun to(time: LocalDateTime): String {
+    return time.toString()
+  }
 }
