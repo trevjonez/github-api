@@ -17,6 +17,7 @@
 package com.trevjonez.github
 
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 
 @JsonClass(generateAdapter = true)
 data class User(
@@ -38,7 +39,7 @@ data class User(
   val received_events_url: String,
   val type: String,
   val site_admin: Boolean
-)
+) : Serializable
 
 @JsonClass(generateAdapter = true)
 data class Repository(
@@ -89,4 +90,4 @@ data class Repository(
   val tags_url: String,
   val teams_url: String,
   val trees_url: String
-)
+) : Serializable

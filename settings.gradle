@@ -1,13 +1,3 @@
-pluginManagement {
-  resolutionStrategy {
-    eachPlugin {
-      if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
-        useVersion(kotlinVersion)
-      }
-    }
-  }
-}
-
 /*
  *    Copyright 2019 Trevor Jones
  *
@@ -23,6 +13,16 @@ pluginManagement {
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
+
+pluginManagement {
+  resolutionStrategy {
+    eachPlugin {
+      if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
+        useVersion(kotlinVersion)
+      }
+    }
+  }
+}
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -61,5 +61,5 @@ gradle.rootProject {
   }
 }
 
-include(":github-api", ":statuses", ":releases")
+include(":github-api", ":gradle-helpers", ":statuses", ":releases")
 enableFeaturePreview('GRADLE_METADATA')

@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2019. Trevor Jones
+ *    Copyright 2019 Trevor Jones
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *        http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 
 package com.trevjonez.github
@@ -28,18 +28,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
-fun defaultRetrofit() = Retrofit.Builder()
+fun defaultRetrofit(baseUrl: String = "https://api.github.com") = Retrofit.Builder()
   .client(
     OkHttpClient.Builder()
       .addInterceptor(headerInterceptor("Accept", "application/vnd.github.v3+json"))
       .build()
   )
-  .baseUrl(HttpUrl.get("https://api.github.com"))
+  .baseUrl(HttpUrl.get(baseUrl))
   .addConverterFactory(MoshiConverterFactory.create(defaultMoshi()))
   .addConverterFactory(ScalarsConverterFactory.create())
   .build()
 
-fun defaultMoshi() = Moshi.Builder()
+fun defaultMoshi(): Moshi = Moshi.Builder()
   .add(LocalDateTimeAdapter())
   .build()
 

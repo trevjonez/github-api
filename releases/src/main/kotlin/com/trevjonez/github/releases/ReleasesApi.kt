@@ -1,17 +1,17 @@
 /*
- * Copyright (c) 2019. Trevor Jones
+ *    Copyright 2019 Trevor Jones
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *        http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 
 package com.trevjonez.github.releases
@@ -21,6 +21,7 @@ import com.trevjonez.github.User
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -46,7 +47,7 @@ data class Release(
   val published_at: LocalDateTime? = null,
   val author: User? = null,
   val assets: List<Asset> = emptyList()
-) {
+) : Serializable {
   interface Api {
     @GET("/repos/{owner}/{repo}/releases")
     fun list(
@@ -156,7 +157,7 @@ data class Release(
     val body: String?,
     val draft: Boolean?,
     val prerelease: Boolean?
-  )
+  ) : Serializable
 
   @JsonClass(generateAdapter = true)
   data class Asset(
@@ -173,11 +174,11 @@ data class Release(
     val created_at: LocalDateTime,
     val updated_at: LocalDateTime,
     val uploader: User
-  ) {
+  ) : Serializable {
     @JsonClass(generateAdapter = true)
     data class Edit(
       val name: String?,
       val label: String?
-    )
+    ) : Serializable
   }
 }

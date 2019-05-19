@@ -22,6 +22,7 @@ import com.trevjonez.github.Repository
 import com.trevjonez.github.User
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.Serializable
 import java.time.LocalDateTime
 
 /**
@@ -30,17 +31,17 @@ import java.time.LocalDateTime
 @JsonClass(generateAdapter = true)
 data class Status(
   val url: String,
-  val avatar_url: String,
+  val avatar_url: String? = null,
   val id: Long,
   val node_id: String,
   val state: State,
-  val description: String,
-  val target_url: String,
+  val description: String? = null,
+  val target_url: String? = null,
   val context: String,
-  val created_at: LocalDateTime,
-  val updated_at: LocalDateTime,
-  val creator: User
-) {
+  val created_at: LocalDateTime? = null,
+  val updated_at: LocalDateTime? = null,
+  val creator: User? = null
+) : Serializable {
   interface Api {
     @POST("/repos/{owner}/{repo}/statuses/{sha}")
     @Headers("Content-Type: application/json; charset=utf-8")
@@ -72,12 +73,12 @@ data class Status(
   @JsonClass(generateAdapter = true)
   data class Request(
     val state: State,
-    val target_url: String,
-    val description: String,
+    val target_url: String?,
+    val description: String?,
     val context: String
-  )
+  ) : Serializable
 
-  enum class State {
+  enum class State : Serializable {
     @Json(name = "error")
     ERROR,
     @Json(name = "failure")
@@ -97,5 +98,5 @@ data class Status(
     val repository: Repository,
     val commit_url: String,
     val url: String
-  )
+  ) : Serializable
 }
