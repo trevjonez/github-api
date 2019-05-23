@@ -35,7 +35,7 @@ abstract class GithubApiTask : DefaultTask(), GithubApiConfiguration {
   @get:Input
   abstract override val authToken: Property<String>
 
-  protected val retrofit: Retrofit by projectExt { defaultRetrofit() }
+  val retrofit: Retrofit by projectExt { defaultRetrofit() }
 
   protected inline fun <reified T : Any> githubApi(): ReadOnlyProperty<GithubApiTask, T> {
     return projectExt { retrofit.create<T>() }

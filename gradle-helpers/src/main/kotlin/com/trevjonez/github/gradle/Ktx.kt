@@ -34,6 +34,6 @@ inline fun <reified T : Any> projectExt(
 inline fun <reified T : Any> ExtensionContainer.getValue(
   crossinline defaultValue: () -> T
 ): T {
-  val name = "GithubApi:${T::class.java.simpleName}"
+  val name = "GithubApi:${T::class.java.name}"
   return findByName(name) as? T ?: defaultValue().also { add(name, it) }
 }

@@ -17,9 +17,21 @@
 package com.trevjonez.github.gradle
 
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 
 interface GithubApiConfiguration {
   val owner: Property<String>
   val repo: Property<String>
   val authToken: Property<String>
+
+  fun owner(value: Any) = dslFun(owner, value)
+  fun repo(value: Any) = dslFun(repo, value)
+  fun authToken(value: Any) = dslFun(authToken, value)
+}
+
+private fun dslFun(prop: Property<String>, value: Any) {
+  when (value) {
+    is CharSequence -> prop.set(value.toString())
+    is Provider<*> -> prop.set(value.map { it.toString() })
+  }
 }
