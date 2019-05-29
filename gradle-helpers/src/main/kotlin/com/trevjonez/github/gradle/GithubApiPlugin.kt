@@ -27,8 +27,11 @@ abstract class GithubApiPlugin : Plugin<Project> {
     this.target = target
     configExtension =
       target.extensions.create("GithubApi", GithubApiConfigurationExt::class.java)
+    createConfigExt()
     registerTasks()
   }
+
+  abstract fun createConfigExt()
 
   abstract fun registerTasks()
 

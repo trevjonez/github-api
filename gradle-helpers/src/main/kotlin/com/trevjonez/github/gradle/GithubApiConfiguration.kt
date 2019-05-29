@@ -24,14 +24,14 @@ interface GithubApiConfiguration {
   val repo: Property<String>
   val authToken: Property<String>
 
-  fun owner(value: Any) = dslFun(owner, value)
-  fun repo(value: Any) = dslFun(repo, value)
-  fun authToken(value: Any) = dslFun(authToken, value)
+  fun owner(value: Any) = owner.dslFun(value)
+  fun repo(value: Any) = repo.dslFun(value)
+  fun authToken(value: Any) = authToken.dslFun(value)
 }
 
-private fun dslFun(prop: Property<String>, value: Any) {
+fun Property<String>.dslFun(value: Any) {
   when (value) {
-    is CharSequence -> prop.set(value.toString())
-    is Provider<*> -> prop.set(value.map { it.toString() })
+    is CharSequence -> set(value.toString())
+    is Provider<*> -> set(value.map { it.toString() })
   }
 }
