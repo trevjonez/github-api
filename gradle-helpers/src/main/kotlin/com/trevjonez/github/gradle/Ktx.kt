@@ -22,18 +22,18 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 inline fun <reified T : Any> projectExt(
+  crossinline nameSuffix: () -> String = { "" },
   crossinline defaultValue: () -> T
 ): ReadOnlyProperty<Task, T> {
   return object : ReadOnlyProperty<Task, T> {
     override fun getValue(thisRef: Task, property: KProperty<*>): T {
-      return thisRef.project.extensions.getValue(defaultValue)
+      return thisRef.project.extensions.getValue(
+        "GithubApi:${T::class.java.name}:${nameSuffix()}",
+        defaultValue
+      )
     }
   }
 }
 
-inline fun <reified T : Any> ExtensionContainer.getValue(
-  crossinline defaultValue: () -> T
-): T {
-  val name = "GithubApi:${T::class.java.name}"
-  return findByName(name) as? T ?: defaultValue().also { add(name, it) }
-}
+inline fun <reified T : Any> ExtensionContainer.getValue(name: String, crossinline defaultValue: () -> T) =
+    findByName(name) as? T ?: defaultValue().also { add(name, it) }

@@ -26,13 +26,14 @@ abstract class GithubApiPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     this.target = target
     configExtension =
-      target.extensions.create("GithubApi", GithubApiConfigurationExt::class.java)
+        target.extensions.findByType(GithubApiConfigurationExt::class.java)
+            ?: target.extensions.create("GithubApi", GithubApiConfigurationExt::class.java)
+
     createConfigExt()
     registerTasks()
   }
 
   abstract fun createConfigExt()
-
   abstract fun registerTasks()
 
   companion object {

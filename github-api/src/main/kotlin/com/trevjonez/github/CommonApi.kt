@@ -19,6 +19,8 @@ package com.trevjonez.github
 import com.squareup.moshi.JsonClass
 import java.io.Serializable
 
+const val DEFAULT_BASE_URL = "https://api.github.com"
+
 @JsonClass(generateAdapter = true)
 data class User(
   val login: String,

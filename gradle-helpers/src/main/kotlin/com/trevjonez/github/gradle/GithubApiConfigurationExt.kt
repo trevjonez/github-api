@@ -16,6 +16,11 @@
 
 package com.trevjonez.github.gradle
 
+import com.trevjonez.github.DEFAULT_BASE_URL
 import org.gradle.api.plugins.ExtensionAware
 
-abstract class GithubApiConfigurationExt : GithubApiConfiguration, ExtensionAware
+abstract class GithubApiConfigurationExt : GithubApiConfiguration, ExtensionAware {
+  init {
+    apiUrl.convention(DEFAULT_BASE_URL)
+  }
+}

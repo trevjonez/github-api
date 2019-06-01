@@ -27,6 +27,9 @@ import kotlin.properties.ReadOnlyProperty
 abstract class GithubApiTask : DefaultTask(), GithubApiConfiguration {
 
   @get:Input
+  abstract override val apiUrl: Property<String>
+
+  @get:Input
   abstract override val owner: Property<String>
 
   @get:Input
@@ -35,13 +38,14 @@ abstract class GithubApiTask : DefaultTask(), GithubApiConfiguration {
   @get:Input
   abstract override val authToken: Property<String>
 
-  val retrofit: Retrofit by projectExt { defaultRetrofit() }
+  val retrofit: Retrofit by projectExt({ apiUrl.get() }) { defaultRetrofit(apiUrl.get()) }
 
   protected inline fun <reified T : Any> githubApi(): ReadOnlyProperty<GithubApiTask, T> {
     return projectExt { retrofit.create<T>() }
   }
 
   fun setApiConfig(apiConfig: GithubApiConfiguration) {
+    apiUrl.set(apiConfig.apiUrl)
     owner.set(apiConfig.owner)
     repo.set(apiConfig.repo)
     authToken.set(apiConfig.authToken)

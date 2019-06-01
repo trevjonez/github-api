@@ -28,7 +28,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
-fun defaultRetrofit(baseUrl: String = "https://api.github.com") = Retrofit.Builder()
+fun defaultRetrofit(baseUrl: String = DEFAULT_BASE_URL) = Retrofit.Builder()
   .client(
     OkHttpClient.Builder()
       .addInterceptor(headerInterceptor("Accept", "application/vnd.github.v3+json"))
