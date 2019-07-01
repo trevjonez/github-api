@@ -24,8 +24,6 @@ pluginManagement {
   }
 }
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 buildscript {
   repositories {
     gradlePluginPortal()
@@ -52,12 +50,15 @@ gradle.rootProject {
       jcenter()
     }
 
-    tasks.withType(KotlinCompile).configureEach { ktCompileTask ->
-      kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = ["-Xjsr305=strict", "-progressive"]
-      }
-    }
+    //withType doesn't work from this context?
+    tasks.matching { task -> task.getClass().name == "org.jetbrains.kotlin.gradle.tasks.KotlinCompile_Decorated" }
+        .configureEach {
+          kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += "-Xjsr305=strict"
+            freeCompilerArgs += '-XXLanguage:+NewInference'
+          }
+        }
   }
 }
 
